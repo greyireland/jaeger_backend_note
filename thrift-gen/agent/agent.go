@@ -40,18 +40,18 @@ type AgentClient struct {
 func NewAgentClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *AgentClient {
 	return &AgentClient{Transport: t,
 		ProtocolFactory: f,
-		InputProtocol:   f.GetProtocol(t),
-		OutputProtocol:  f.GetProtocol(t),
-		SeqId:           0,
+		InputProtocol: f.GetProtocol(t),
+		OutputProtocol: f.GetProtocol(t),
+		SeqId: 0,
 	}
 }
 
 func NewAgentClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *AgentClient {
 	return &AgentClient{Transport: t,
 		ProtocolFactory: nil,
-		InputProtocol:   iprot,
-		OutputProtocol:  oprot,
-		SeqId:           0,
+		InputProtocol: iprot,
+		OutputProtocol: oprot,
+		SeqId: 0,
 	}
 }
 
@@ -194,6 +194,7 @@ func (p *agentProcessorEmitBatch) Process(seqId int32, iprot, oprot thrift.TProt
 
 	iprot.ReadMessageEnd()
 	var err2 error
+	// 获取数据
 	if err2 = p.handler.EmitBatch(args.Batch); err2 != nil {
 		return true, err2
 	}

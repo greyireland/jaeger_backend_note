@@ -74,6 +74,7 @@ func (jbh *jaegerBatchesHandler) SubmitBatches(ctx thrift.Context, batches []*ja
 			mSpan := jConv.ToDomainSpan(span, batch.Process)
 			mSpans = append(mSpans, mSpan)
 		}
+		//处理spans
 		oks, err := jbh.modelProcessor.ProcessSpans(mSpans, JaegerFormatType)
 		if err != nil {
 			jbh.logger.Error("Collector failed to process span batch", zap.Error(err))

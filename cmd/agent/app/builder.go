@@ -71,6 +71,7 @@ type CollectorProxy interface {
 }
 
 // Builder Struct to hold configurations
+// 创建配置
 type Builder struct {
 	Processors []ProcessorConfiguration `yaml:"processors"`
 	HTTPServer HTTPServerConfiguration  `yaml:"httpServer"`

@@ -96,6 +96,7 @@ type SpanWriter struct {
 }
 
 // NewSpanWriter returns a SpanWriter
+// cassandra存储
 func NewSpanWriter(
 	session cassandra.Session,
 	writeCacheTTL time.Duration,

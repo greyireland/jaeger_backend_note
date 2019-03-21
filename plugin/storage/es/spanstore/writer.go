@@ -21,8 +21,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/uber/jaeger-lib/metrics"
 	"go.uber.org/zap"
-	"gopkg.in/olivere/elastic.v5"
-
 	"github.com/jaegertracing/jaeger/model"
 	"github.com/jaegertracing/jaeger/pkg/cache"
 	"github.com/jaegertracing/jaeger/pkg/es"
@@ -42,6 +40,7 @@ type spanWriterMetrics struct {
 type serviceWriter func(string, *dbmodel.Span)
 
 // SpanWriter is a wrapper around elastic.Client
+// es的存储写入
 type SpanWriter struct {
 	ctx              context.Context
 	client           es.Client
@@ -161,9 +160,9 @@ func (s *SpanWriter) createIndex(indexName string, mapping string, jsonSpan *dbm
 			if err != nil {
 				eErr, ok := err.(*elastic.Error)
 				if !ok || eErr.Details != nil &&
-					// ES 5.x
+				// ES 5.x
 					(eErr.Details.Type != "index_already_exists_exception" &&
-						// ES 6.x
+					// ES 6.x
 						eErr.Details.Type != "resource_already_exists_exception") {
 					return s.logError(jsonSpan, err, "Failed to create index", s.logger)
 				}

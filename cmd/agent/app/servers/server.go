@@ -19,6 +19,7 @@ import (
 )
 
 // Server is the interface for servers that receive inbound span submissions from client.
+// 从client接收数据
 type Server interface {
 	Serve()
 	IsServing() bool

@@ -34,7 +34,7 @@ type ThriftProcessor struct {
 	numProcessors int
 	processing    sync.WaitGroup
 	logger        *zap.Logger
-	metrics       struct {
+	metrics struct {
 		// Amount of time taken for processor to close
 		ProcessorCloseTimer metrics.Timer `metric:"thrift.udp.t-processor.close-time"`
 
@@ -105,6 +105,7 @@ func (s *ThriftProcessor) Stop() {
 
 // processBuffer reads data off the channel and puts it into a custom transport for
 // the processor to process
+// 读取client之后的数据写到Collector
 func (s *ThriftProcessor) processBuffer() {
 	for readBuf := range s.server.DataChan() {
 		protocol := s.protocolPool.Get().(thrift.TProtocol)

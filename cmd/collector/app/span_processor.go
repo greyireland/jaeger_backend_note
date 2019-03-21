@@ -96,6 +96,7 @@ func (sp *spanProcessor) Stop() {
 	sp.queue.Stop()
 }
 
+// 保存span
 func (sp *spanProcessor) saveSpan(span *model.Span) {
 	startTime := time.Now()
 	if err := sp.spanWriter.WriteSpan(span); err != nil {
